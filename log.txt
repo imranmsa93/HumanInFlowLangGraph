@@ -1,0 +1,49 @@
+[ALERT][PagerDuty][CRITICAL]
+triggered_at=2025-03-18T09:41:58Z
+service=payments-api
+env=prod
+metric=http_5xx_rate
+value=37.2%
+threshold=5%
+
+[ALERT][Datadog]
+High latency detected on payments-api
+p95_latency=4820ms
+region=eu-west-1
+window=5m
+
+2025-03-18T09:42:01.114Z ERROR payments-api
+request_id=req_aa82f19
+endpoint=/v1/charge
+exception=TimeoutError
+message=Upstream payment-gateway request timed out after 3000ms
+
+2025-03-18T09:42:02.447Z ERROR payments-api
+request_id=req_b17c921
+endpoint=/v1/charge
+exception=ConnectionError
+message=Failed to establish new connection to payment-gateway
+
+2025-03-18T09:42:04.889Z WARN payments-api
+request_id=req_c81d02a
+retry_attempt=3
+message=Retry budget exhausted for transaction_id=txn_847392
+
+2025-03-18T09:42:06.102Z INFO payments-api
+Scaling event triggered
+old_replicas=6
+new_replicas=12
+
+2025-03-18T09:42:08.551Z ERROR payment-gateway
+service=payment-gateway
+region=eu-west-1
+exception=DatabaseTimeout
+message=Query exceeded timeout threshold
+
+2025-03-18T09:42:15.901Z INFO kubernetes
+pod=payments-api-7f9d8cdd9b-lkq7s
+event=ContainerRestart
+reason=CrashLoopBackOff
+
+[ALERT][Slack #incidents]
+🚨 Payments checkout failures reported by support team (EU customers)
