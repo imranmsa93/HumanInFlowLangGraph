@@ -243,7 +243,9 @@ def run_demo():
         print(m)
 
     print("\n--- Execution history ---")
-    print(" -> ".join(final.get("history", [])))
+    print(" --> ".join(final.get("history", [])))
+
+
 
 
 # Main file
